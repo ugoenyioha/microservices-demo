@@ -11,7 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: productcatalogservice
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -22,10 +27,11 @@ spec:
       labels:
         app: productcatalogservice
     spec:
+      serviceAccountName: productcatalogservice
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: productcatalogservice
+        image: 127.0.0.1:32000/productcatalogservice
         ports:
         - containerPort: 3550
         readinessProbe:

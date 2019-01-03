@@ -11,7 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: adservice
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -22,10 +27,11 @@ spec:
       labels:
         app: adservice
     spec:
+      serviceAccountName: adservice
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: adservice
+        image: 127.0.0.1:32000/adservice
         ports:
         - containerPort: 9555
         env:

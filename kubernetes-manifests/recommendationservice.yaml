@@ -11,7 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: recommendationservice
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -22,10 +27,11 @@ spec:
       labels:
         app: recommendationservice
     spec:
+      serviceAccountName: recommendationservice
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: recommendationservice
+        image: 127.0.0.1:32000/recommendationservice
         ports:
         - containerPort: 8080
         readinessProbe:

@@ -11,7 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: redis
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -22,6 +27,7 @@ spec:
       labels:
         app: redis-cart
     spec:
+      serviceAccountName: redis
       containers:
       - name: redis
         image: redis:alpine
